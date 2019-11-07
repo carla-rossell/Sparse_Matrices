@@ -16,7 +16,7 @@ from scipy.sparse import csr_matrix
 import cv2
 
 
-
+#Sort .h5 and .tif datasets
 def custom_sorth5(name_fov): 
     [other,value]=name_fov.split('sub')
     [value,other,other]=value.split('_')    
@@ -33,6 +33,7 @@ h5_files=glob.glob('*.h5')
 h5_files.sort(key=custom_sorth5)
 #print(h5_files)
 
+#Read all tif files in directory
 dapi_files=glob.glob('*.tif')
 dapi_files.sort(key=custom_sortdapi)
 #Get all the FOVs and arrange them in the position
@@ -41,13 +42,12 @@ number_fovs=np.arange(1,len(h5_files)+1)
 #fov_matrix=np.array(number_fovs).reshape(rows,columns)
 fov_matrix=np.array(number_fovs).reshape(23,25)
 
+#Set counter to check current fov
 dapi_fov_counter=0
+#Create a list in which to save the sparses
 all_fov_sparses=[]
 
 for current_fov in h5_files:    
-    coord_list=[]
-    area_list=[]
-    fov_list=[]
     #The h5 extension  is 'exported_data'
     #name_fov=h5_files[0]
     name_fov=current_fov
