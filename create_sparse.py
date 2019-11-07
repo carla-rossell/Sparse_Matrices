@@ -75,15 +75,15 @@ for current_fov in h5_files:
     
 
     #Create a 3D sparse array where x,y are FOV size and z is the amount of nuclei in the FOV 
-    sparse_in_fov=np.zeros([1024,1024,np.amax(mask_label)])
+    #sparse_in_fov=np.zeros([1024,1024,np.amax(mask_label)])
+    sparse_in_fov=csr((1024,1024,np.amax(mask_label),dtype='uint8')	
     #Set a counter to check current stack
     z_dimension=0
 	# 0 is background so it doesn't get included in the range
     for i in range(1,np.amax(mask_label)+1):
         xmask,ymask=np.where(mask_label==i)
-        single_cell_mask=np.zeros([1024,1024])
-	
-        single_cell_mask[xmask,ymask]=dapi_fov[xmask,ymask]
+	single_cell_mask=csr((1024,1024),dtype='uint8')	        
+	single_cell_mask[xmask,ymask]=dapi_fov[xmask,ymask]
 	#Add current nuclei sparse on to the FOV array
         sparse_in_fov= np.insert(sparse_in_fov, z_dimension, single_cell_mask, axis=2)
 	#Move to the next stack (next nuclei label)
