@@ -14,7 +14,7 @@ from skimage.measure import label, regionprops
 import cv2
 import scipy
 
-
+#Define functions to sort datasets
 def custom_sorth5(name_fov): 
     [other,value]=name_fov.split('sub')
     [value,other,other]=value.split('_')    
@@ -31,6 +31,7 @@ h5_files=glob.glob('*.h5')
 h5_files.sort(key=custom_sorth5)
 #print(h5_files)
 
+#Read all dapi files
 dapi_files=glob.glob('*.tif')
 dapi_files.sort(key=custom_sortdapi)
 #Get all the FOVs and arrange them in the position
@@ -72,9 +73,7 @@ for current_fov in h5_files:
     [height,width]=mask_reduced.shape
     
 
-    #fig, ax = plt.subplots(figsize=(10, 6))
-    #ax.imshow(mask_label)
-    #sparse_in_fov=np.zeros([1024,1024,np.amax(mask_label)])
+    #Set FOV counter
     dapi_fov_counter=0
     #Create a list of the sparses for each FOV
     all_fov_sparses=[]
