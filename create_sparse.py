@@ -78,7 +78,8 @@ for current_fov in h5_files:
     sparse_in_fov=np.zeros([1024,1024,np.amax(mask_label)])
     #Set a counter to check current stack
     z_dimension=0
-    for i in range(0,np.amax(mask_label)+1):
+	# 0 is background so it doesn't get included in the range
+    for i in range(1,np.amax(mask_label)+1):
         xmask,ymask=np.where(mask_label==i)
         single_cell_mask=np.zeros([1024,1024])
 	
